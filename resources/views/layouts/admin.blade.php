@@ -27,8 +27,8 @@
             class="px-2 hidden dark:flex" />
         <flux:input as="button" variant="filled" placeholder="Search..." icon="magnifying-glass" />
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="home" href="#" current>Home</flux:navlist.item>
-            <flux:navlist.item icon="inbox" badge="12" href="#">Inbox</flux:navlist.item>
+            <flux:navlist.item icon="home" href="{{ route('home.index') }}">Home</flux:navlist.item>
+            <flux:navlist.item icon="user" badge="10" href="{{ route('admin.users.index') }}">Users</flux:navlist.item>
             <flux:navlist.item icon="document-text" href="#">Documents</flux:navlist.item>
             <flux:navlist.item icon="calendar" href="#">Calendar</flux:navlist.item>
             <flux:navlist.group expandable heading="Favorites" class="hidden lg:grid">
@@ -72,6 +72,7 @@
     <flux:main>
         {{ $slot }}
     </flux:main>
+    <flux:toast />
     @fluxScripts
 </body>
 

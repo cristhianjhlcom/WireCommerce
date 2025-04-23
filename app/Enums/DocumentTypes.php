@@ -7,8 +7,8 @@ namespace App\Enums;
 enum DocumentTypes: string
 {
     case Passport = 'passport';
-    case CE = 'CE';
-    case DNI = 'DNI';
+    case CE = 'ce';
+    case DNI = 'dni';
 
     public static function values(): array
     {
@@ -18,7 +18,7 @@ enum DocumentTypes: string
     public function label(): string
     {
         return match ($this) {
-            self::Passport => __('Passport'),
+            self::Passport => __('Pasaporte'),
             self::CE => __('Carnet de Extrangería'),
             self::DNI => __('DNI'),
         };
