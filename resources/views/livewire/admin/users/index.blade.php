@@ -8,7 +8,12 @@
         <form wire:submit.prevent="save" class="space-y-4">
             <flux:input wire:model="first_name" name="first_name" label="{{ __('First Name') }}" placeholder="John Doe" />
             <flux:input wire:model="last_name" name="last_name" label="{{ __('Last Name') }}" placeholder="Doe" />
-            <flux:input wire:model="email" name="email" label="{{ __('Email') }}" placeholder="john.doe@example.com" />
+            <flux:input
+                wire:model="email"
+                name="email"
+                label="{{ __('Email') }}"
+                placeholder="john.doe@example.com"
+            />
             <flux:input wire:model="phone_number" name="phone_number" label="{{ __('Phone Number') }}" placeholder="9999999999" />
             <flux:field>
                 <flux:label>{{ __('Document Type') }}</flux:label>
@@ -53,6 +58,19 @@
                         {{ $user->profile->phone_number ?? '-' }}
                     </flux:table.cell>
                     <flux:table.cell>{{ $user->createdAtHuman() }}</flux:table.cell>
+                    <flux:table.cell>
+                        <flux:dropdown position="bottom" align="end">
+                            <flux:button variant="ghost" icon="ellipsis-horizontal"></flux:button>
+                            <flux:menu>
+                                <flux:menu.item
+                                    icon="trash"
+                                    variant="danger"
+                                    wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}"
+                                    wire:click="delete({{ $user }})"
+                                >{{ __('Delete') }}</flux:menu.item>
+                            </flux:menu>
+                        </flux:dropdown>
+                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
         </flux:table.rows>

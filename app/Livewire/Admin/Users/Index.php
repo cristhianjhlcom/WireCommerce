@@ -76,6 +76,14 @@ final class Index extends Component
         Flux::toast(__('User created successfully.'));
     }
 
+    public function delete(User $user)
+    {
+        // TODO: Add authorization with admin user.
+        $user->delete();
+
+        Flux::toast(__('User deleted successfully.'));
+    }
+
     public function render()
     {
         return view('livewire.admin.users.index')->with([
