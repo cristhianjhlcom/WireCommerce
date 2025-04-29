@@ -19,7 +19,7 @@ enum DocumentTypes: string
     {
         return match ($this) {
             self::Passport => __('Pasaporte'),
-            self::CE => __('Carnet de Extrangería'),
+            self::CE => __('Carnet de Extranjería'),
             self::DNI => __('DNI'),
         };
     }
