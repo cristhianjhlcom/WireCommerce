@@ -9,6 +9,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 use App\Enums\DocumentsTypeEnum;
+use App\Enums\PermissionsEnum;
+use App\Enums\RolesEnum;
 use App\Models\User;
 use Livewire\WithPagination;
 
@@ -56,7 +58,10 @@ final class Index extends Component
 
     public function save()
     {
-        // TODO: Add authorization with admin user.
+        if (!auth()->user()->can(PermissionsEnum::CREATE_USERS->value)) {
+            abort(403);
+        }
+
         $this->validate();
 
         $user = User::create([
@@ -72,13 +77,18 @@ final class Index extends Component
             'document_number' => $this->document_number,
         ]);
 
+        $user->assignRole(RolesEnum::USER->value);
+
         Flux::modal('create-user')->close();
         Flux::toast(__('User created successfully.'));
     }
 
     public function delete(User $user)
     {
-        // TODO: Add authorization with admin user.
+        if (!auth()->user()->can(PermissionsEnum::DELETE_USERS->value)) {
+            abort(403);
+        }
+
         $user->delete();
 
         Flux::toast(__('User deleted successfully.'));

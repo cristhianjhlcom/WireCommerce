@@ -34,6 +34,7 @@
     <flux:table :paginate="$users">
         <flux:table.columns>
             <flux:table.column>{{ __('Customer') }}</flux:table.column>
+            <flux:table.column>{{ __('Role') }}</flux:table.column>
             <flux:table.column>{{ __('Email') }}</flux:table.column>
             <flux:table.column>{{ __('Document') }}</flux:table.column>
             <flux:table.column>{{ __('Phone') }}</flux:table.column>
@@ -46,6 +47,11 @@
                     <flux:table.cell class="flex items-center gap-3">
                         <flux:avatar name="{{ $user->profile->full_name }}" />
                         {{ $user->profile->full_name }}
+                    </flux:table.cell>
+                    <flux:table.cell>
+                        @foreach ($user->getRoles() as $role)
+                            <flux:badge color="{{ $role->color() }}">{{ $role->label() }}</flux:badge>
+                        @endforeach
                     </flux:table.cell>
                     <flux:table.cell>
                         {{ $user->email }}

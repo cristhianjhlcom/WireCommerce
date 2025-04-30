@@ -16,40 +16,30 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdminRole = Role::create([
-            'name' => RolesEnum::SUPER_ADMIN->value,
-        ]);
-        $userRole = Role::create([
-            'name' => RolesEnum::USER->value,
-        ]);
-        $manageUsersPermission = Permission::create([
-            'name' => PermissionsEnum::MANAGE_USERS->value,
-        ]);
-        $manageOwnProfilePermission = Permission::create([
-            'name' => PermissionsEnum::MANAGE_OWN_PROFILE->value,
-        ]);
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $superAdminRole->givePermissionTo($manageUsersPermission);
-        $userRole->givePermissionTo($manageOwnProfilePermission);
-        /*
-        $customerRole = Role::create([
-            'name' => RolesEnum::CUSTOMER->value,
-        ]);
-        $vendorRole = Role::create([
-            'name' => RolesEnum::VENDOR->value,
-        ]);
-        $adminRole = Role::create([
-            'name' => RolesEnum::ADMIN->value,
-        ]);
-        */
+        // NOTE: Permissions for users model actions.
+        foreach (PermissionsEnum::values() as $permission) {
+            Permission::create(['name' => $permission]);
+        }
 
-        /*
-        $manageProductsPermission = Permission::create([
-            'name' => PermissionsEnum::MANAGE_PRODUCTS->value,
+        // NOTE: Create Role Super-Admin and assign all permissions to it.
+        $superAdmin = Role::create(['name' => RolesEnum::SUPER_ADMIN->value]);
+        $superAdmin->givePermissionTo(Permission::all());
+
+        // NOTE: Create Role User with limited permissions.
+        $user = Role::create(['name' => RolesEnum::USER->value]);
+        $user->givePermissionTo([PermissionsEnum::VIEW_PROFILE->value]);
+
+        // NOTE: Create a Super Admin users.
+        $admin = \App\Models\User::factory()->create([
+            'email' => 'admin@email.com',
+            'password' => '12345678',
+        ])->assignRole(RolesEnum::SUPER_ADMIN->value);
+        $admin->profile()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'User',
         ]);
-        $manageOrdersPermission = Permission::create([
-            'name' => PermissionsEnum::MANAGE_ORDERS->value,
-        ]);
-        */
+        $admin->assignRole(RolesEnum::SUPER_ADMIN->value);
     }
 }

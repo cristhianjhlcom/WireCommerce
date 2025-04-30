@@ -45,17 +45,29 @@
             <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
             <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
         </flux:navbar>
-        <flux:dropdown position="top" align="start">
-            <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
-            <flux:menu>
-                <flux:menu.radio.group>
-                    <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
-                    <flux:menu.radio>Truly Delta</flux:menu.radio>
-                </flux:menu.radio.group>
-                <flux:menu.separator />
-                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
-            </flux:menu>
-        </flux:dropdown>
+        @auth
+            <flux:dropdown position="top" align="start">
+                <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
+                <flux:menu>
+                    <flux:menu.radio.group>
+                        <flux:menu.radio checked>Olivia Martin</flux:menu.radio>
+                        <flux:menu.radio>Truly Delta</flux:menu.radio>
+                    </flux:menu.radio.group>
+                    <flux:menu.separator />
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <flux:menu.item icon="arrow-right-start-on-rectangle" type="submit">Logout</flux:menu.item>
+                    </form>
+                </flux:menu>
+            </flux:dropdown>
+        @else
+            <a href="{{ route('login') }}" class="flex items-center gap-2">
+                {{ __('Login') }}
+            </a>
+            <a href="{{ route('register') }}" class="flex items-center gap-2">
+                {{ __('Register') }}
+            </a>
+        @endauth
     </flux:header>
     <flux:sidebar stashable sticky
         class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border rtl:border-r-0 rtl:border-l border-zinc-200 dark:border-zinc-700">
