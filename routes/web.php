@@ -10,3 +10,6 @@ Route::get('/', PublicIndexCatalog::class)->name('home.index');
 
 // TODO: Add admin auth middleware.
 Route::get('admin/users', AdminIndexUser::class)->name('admin.users.index');
+
+// NOTE: Auth routes.
+Route::view('/auth/register', 'auth.register')->name('auth.register');

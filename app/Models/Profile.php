@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\DocumentTypes;
+use App\Enums\DocumentsTypeEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +17,7 @@ final class Profile extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'document_type' => DocumentTypes::class,
+        'document_type' => DocumentsTypeEnum::class,
     ];
 
     public function user(): BelongsTo
@@ -33,7 +33,7 @@ final class Profile extends Model
     protected function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->first_name.' '.$this->last_name,
+            get: fn() => $this->first_name . ' ' . $this->last_name,
         );
     }
 }

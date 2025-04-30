@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-enum DocumentTypes: string
+enum DocumentsTypeEnum: string
 {
     case Passport = 'passport';
     case CE = 'ce';

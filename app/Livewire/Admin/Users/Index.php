@@ -8,7 +8,7 @@ use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
-use App\Enums\DocumentTypes;
+use App\Enums\DocumentsTypeEnum;
 use App\Models\User;
 use Livewire\WithPagination;
 
@@ -26,7 +26,7 @@ final class Index extends Component
 
     public string $phone_number = '';
 
-    public DocumentTypes $document_type = DocumentTypes::DNI;
+    public DocumentsTypeEnum $document_type = DocumentsTypeEnum::DNI;
 
     public string $document_number = '';
 

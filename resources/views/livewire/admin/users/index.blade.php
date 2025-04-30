@@ -18,7 +18,7 @@
             <flux:field>
                 <flux:label>{{ __('Document Type') }}</flux:label>
                 <flux:select wire:model="document_type" placeholder="Choose Document Type...">
-                    @foreach (\App\Enums\DocumentTypes::cases() as $type)
+                    @foreach (\App\Enums\DocumentsTypeEnum::cases() as $type)
                         <flux:select.option value="{{ $type->value }}">{{ $type->label() }}</flux:select.option>
                     @endforeach
                 </flux:select>

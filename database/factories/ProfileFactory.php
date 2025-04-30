@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
-use App\Enums\DocumentTypes;
+use App\Enums\DocumentsTypeEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +23,7 @@ final class ProfileFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'phone_number' => fake()->phoneNumber(),
-            'document_type' => DocumentTypes::DNI,
+            'document_type' => DocumentsTypeEnum::DNI,
             'document_number' => fake()->numerify('###########'),
             'avatar' => null,
         ];

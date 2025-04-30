@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Enums\DocumentTypes;
+use App\Enums\DocumentsTypeEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('phone_number')->nullable();
-            $table->enum('document_type', DocumentTypes::values())->default(DocumentTypes::DNI);
+            $table->enum('document_type', DocumentsTypeEnum::values())->default(DocumentsTypeEnum::DNI);
             $table->string('document_number')->nullable();
             $table->string('avatar')->nullable();
             $table->timestamps();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Admin;
 
-use App\Enums\DocumentTypes;
+use App\Enums\DocumentsTypeEnum;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,7 +26,7 @@ final class UserProfileTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'phone_number' => '123456789',
-            'document_type' => DocumentTypes::DNI,
+            'document_type' => DocumentsTypeEnum::DNI,
             'document_number' => '123456789',
             'avatar' => null,
         ]);
@@ -40,7 +40,7 @@ final class UserProfileTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'phone_number' => '123456789',
-            'document_type' => DocumentTypes::DNI,
+            'document_type' => DocumentsTypeEnum::DNI,
             'document_number' => '123456789',
             'avatar' => null,
         ]);
