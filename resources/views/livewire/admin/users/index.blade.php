@@ -62,12 +62,15 @@
                         <flux:dropdown position="bottom" align="end">
                             <flux:button variant="ghost" icon="ellipsis-horizontal"></flux:button>
                             <flux:menu>
-                                <flux:menu.item
-                                    icon="trash"
-                                    variant="danger"
-                                    wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}"
-                                    wire:click="delete({{ $user }})"
-                                >{{ __('Delete') }}</flux:menu.item>
+                                <flux:menu.item icon="eye" href="{{ route('admin.users.show', $user) }}">
+                                    {{ __('View') }}
+                                </flux:menu.item>
+                                <flux:menu.item icon="pencil" href="{{ route('admin.users.edit', $user) }}">
+                                    {{ __('Edit') }}
+                                </flux:menu.item>
+                                <flux:menu.item icon="trash" variant="danger" wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}" wire:click="delete({{ $user }})">
+                                    {{ __('Archive') }}
+                                </flux:menu.item>
                             </flux:menu>
                         </flux:dropdown>
                     </flux:table.cell>

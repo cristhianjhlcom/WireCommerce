@@ -10,12 +10,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
 final class Profile extends Model implements Auditable
 {
-    use HasFactory, \OwenIt\Auditing\Auditable;
+    use HasFactory, AuditableTrait;
 
     protected $guarded = [];
+
+    protected $auditInclude = [
+        'first_name',
+        'last_name',
+        'phone_number',
+        'document_type',
+        'document_number',
+    ];
 
     protected $auditExclude = [
         'created_at',
@@ -40,12 +49,12 @@ final class Profile extends Model implements Auditable
     {
         if (! $this->first_name && ! $this->last_name) {
             return Attribute::make(
-                get: fn () => '-',
+                get: fn() => '-',
             );
         }
 
         return Attribute::make(
-            get: fn () => $this->first_name.' '.$this->last_name,
+            get: fn() => $this->first_name . ' ' . $this->last_name,
         );
     }
 }
