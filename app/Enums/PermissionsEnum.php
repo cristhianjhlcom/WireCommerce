@@ -13,6 +13,15 @@ enum PermissionsEnum: string
     case DELETE_USERS = 'delete_users';
     case RESTORE_USERS = 'restore_users';
     case FORCE_DELETE_USERS = 'force_delete_users';
+
+    case VIEW_CATEGORIES = 'view_categories';
+    case CREATE_CATEGORIES = 'create_categories';
+    case UPDATE_CATEGORIES = 'update_categories';
+    case EDIT_CATEGORIES = 'edit_categories';
+    case DELETE_CATEGORIES = 'delete_categories';
+    case RESTORE_CATEGORIES = 'restore_categories';
+    case FORCE_DELETE_CATEGORIES = 'force_delete_categories';
+
     case VIEW_PROFILE = 'view_profile';
 
     public static function values(): array
@@ -30,6 +39,15 @@ enum PermissionsEnum: string
             self::DELETE_USERS => __('Delete Users'),
             self::RESTORE_USERS => __('Restore Users'),
             self::FORCE_DELETE_USERS => __('Force Delete Users'),
+
+            self::VIEW_CATEGORIES => __('View Categories'),
+            self::CREATE_CATEGORIES => __('Create Categories'),
+            self::UPDATE_CATEGORIES => __('Update Categories'),
+            self::EDIT_CATEGORIES => __('Edit Categories'),
+            self::DELETE_CATEGORIES => __('Delete Categories'),
+            self::RESTORE_CATEGORIES => __('Restore Categories'),
+            self::FORCE_DELETE_CATEGORIES => __('Force Delete Categories'),
+
             self::VIEW_PROFILE => __('View Profile'),
         };
     }

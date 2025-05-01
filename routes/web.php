@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Livewire\Admin\Categories\Index as AdminIndexCategory;
 use App\Livewire\Admin\Users\Create as AdminCreateUser;
 use App\Livewire\Admin\Users\Edit as AdminEditUser;
 use App\Livewire\Admin\Users\Index as AdminIndexUser;
@@ -17,6 +18,8 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('admin/users/create', AdminCreateUser::class)->name('admin.users.create');
     Route::get('admin/users/{user}', AdminShowUser::class)->name('admin.users.show');
     Route::get('admin/users/{user}/edit', AdminEditUser::class)->name('admin.users.edit');
+    // NOTE: Categories Management.
+    Route::get('admin/categories', AdminIndexCategory::class)->name('admin.categories.index');
 });
 
 // NOTE: Auth routes.

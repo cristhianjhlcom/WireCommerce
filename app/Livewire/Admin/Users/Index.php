@@ -49,20 +49,12 @@ final class Index extends Component
         );
     }
 
-    public function users()
-    {
-        return User::with('profile')
-            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
-            ->latest()
-            ->paginate(10);
-    }
-
     public function render()
     {
         return view('livewire.admin.users.index')->with([
             'users' => User::with('profile')
                 ->latest()
-                ->paginate(10),
+                ->paginate(16),
         ]);
     }
 }

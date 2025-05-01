@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -29,10 +30,24 @@ final class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(app()->isProduction());
         DB::prohibitDestructiveCommands(app()->isProduction());
 
-        if (Schema::hasTable('users')) {
+        $requiredTables = ['users', 'categories'];
+
+        if ($this->tablesExist($requiredTables)) {
             View::share([
                 'usersCount' => User::count(),
+                'categoriesCount' => Category::count(),
             ]);
         }
+    }
+
+    protected function tablesExist(array $tables): bool
+    {
+        foreach ($tables as $table) {
+            if (! Schema::hasTable($table)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
