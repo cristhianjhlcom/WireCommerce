@@ -18,7 +18,7 @@ enum DocumentsTypeEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::Passport => __('Pasaporte'),
+            self::Passport => __('Passport'),
             self::CE => __('Carnet de Extranjería'),
             self::DNI => __('DNI'),
         };
