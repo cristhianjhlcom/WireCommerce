@@ -19,6 +19,9 @@ final class Index extends Component
 {
     use WithPagination;
 
+    public string $sortBy = 'role';
+    public string $sortDirection = 'desc';
+
     #[Validate]
     public string $first_name = '';
 
@@ -56,6 +59,16 @@ final class Index extends Component
         'document_number' => 'número de documento',
     ];
 
+    public function sort($column)
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     public function save()
     {
         if (! auth()->user()->can(PermissionsEnum::CREATE_USERS->value)) {
@@ -86,12 +99,28 @@ final class Index extends Component
     public function delete(User $user)
     {
         if (! auth()->user()->can(PermissionsEnum::DELETE_USERS->value)) {
-            abort(403);
+            Flux::toast(
+                heading: __('Something went wrong'),
+                text: __('User deleted successfully.'),
+                variant: 'error',
+            );
         }
 
         $user->delete();
 
-        Flux::toast(__('User deleted successfully.'));
+        Flux::toast(
+            heading: __('User deleted'),
+            text: __('User deleted successfully.'),
+            variant: 'success',
+        );
+    }
+
+    public function users()
+    {
+        return \App\Models\User::with('profile')
+            ->tap(fn($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+            ->latest()
+            ->paginate(10);
     }
 
     public function render()

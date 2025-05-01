@@ -1,34 +1,40 @@
-<div class="space-y-4">
-    <flux:heading>{{ __('Users Management') }}</flux:heading>
-    <flux:text class="mt-2">{{ __('Manage users of the system.') }}</flux:text>
-    <flux:separator />
+<div>
+    {{-- NOTE: Dialog to create new user --}}
+    <flux:modal.trigger name="create-user">
+        <flux:button icon="plus" variant="primary">{{ __('Add User') }}</flux:button>
+    </flux:modal.trigger>
 
-    <div class="flex flex-col space-y-4">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <!-- NOTE: Barra de búsqueda -->
-            <div class="flex-1 max-w-md">
-                <flux:input wire:model.live.debounce.300ms="search" icon="magnifying-glass" placeholder="{{ __('Search') }}..." />
-            </div>
-            <flux:button.group>
-                <!-- NOTE: Botón de filtros -->
-                <flux:button wire:click="$toggle('showFilters')" icon="funnel">
-                    {{ __('Filters') }}
-                </flux:button>
-                <!-- NOTE: Botón para mostrar/ocultar eliminados -->
-                <flux:button wire:click="toggleTrashed" icon="eye">
-                    {{ __('Show/Hide Trashed') }}
-                </flux:button>
-                <flux:button href="{{ route('admin.users.create') }}" icon="plus">
-                    {{ __('Add User') }}
-                </flux:button>
-            </flux:button.group>
-        </div>
+    <flux:modal name="create-user" class="md:w-xl">
+        <form wire:submit.prevent="save" class="space-y-4">
+            <flux:input wire:model="first_name" name="first_name" label="{{ __('First Name') }}" placeholder="John Doe" />
+            <flux:input wire:model="last_name" name="last_name" label="{{ __('Last Name') }}" placeholder="Doe" />
+            <flux:input
+                wire:model="email"
+                name="email"
+                label="{{ __('Email') }}"
+                placeholder="john.doe@example.com"
+            />
+            <flux:input wire:model="phone_number" name="phone_number" label="{{ __('Phone Number') }}" placeholder="9999999999" />
+            <flux:field>
+                <flux:label>{{ __('Document Type') }}</flux:label>
+                <flux:select wire:model="document_type" placeholder="{{ __('Choose Document Type') }}...">
+                    @foreach (\App\Enums\DocumentsTypeEnum::cases() as $type)
+                        <flux:select.option value="{{ $type->value }}">{{ $type->label() }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+                <flux:error name="document_type" />
+            </flux:field>
+            <flux:input wire:model="document_number" name="document_number" label="{{ __('Document Number') }}"
+                placeholder="41222333" />
+            <flux:button type="submit" variant="primary">{{ __('Save') }}</flux:button>
+        </form>
+    </flux:modal>
 
     {{-- NOTE: Table to list all users. --}}
     <flux:table :paginate="$users">
         <flux:table.columns>
             <flux:table.column>{{ __('Customer') }}</flux:table.column>
-            <flux:table.column sortable :sorted="$sortBy === 'role'" :direction="$sortDirection" wire:click="sort('role')">{{ __('Role') }}</flux:table.column>
+            <flux:table.column>{{ __('Role') }}</flux:table.column>
             <flux:table.column>{{ __('Email') }}</flux:table.column>
             <flux:table.column>{{ __('Document') }}</flux:table.column>
             <flux:table.column>{{ __('Phone') }}</flux:table.column>
