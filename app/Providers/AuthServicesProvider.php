@@ -20,11 +20,13 @@ class AuthServicesProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::before(function ($user, $ability) {
-            if ($user->isAdministrator()) {
-                return true;
-            }
-            return null;
-        });
+        if (!app()->runningInConsole()) {
+            Gate::before(function ($user, $ability) {
+                if ($user->isAdministrator()) {
+                    return true;
+                }
+                return null;
+            });
+        }
     }
 }

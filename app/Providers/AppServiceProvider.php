@@ -7,6 +7,8 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,8 +30,10 @@ final class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(app()->isProduction());
         DB::prohibitDestructiveCommands(app()->isProduction());
 
-        View::share([
-            'usersCount' => User::count(),
-        ]);
+        if (Schema::hasTable('users')) {
+            View::share([
+                'usersCount' => User::count(),
+            ]);
+        }
     }
 }
