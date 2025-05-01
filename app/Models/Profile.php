@@ -38,14 +38,14 @@ final class Profile extends Model implements Auditable
 
     protected function fullName(): Attribute
     {
-        if (!$this->first_name && !$this->last_name) {
+        if (! $this->first_name && ! $this->last_name) {
             return Attribute::make(
-                get: fn() => '-',
+                get: fn () => '-',
             );
         }
 
         return Attribute::make(
-            get: fn() => $this->first_name . ' ' . $this->last_name,
+            get: fn () => $this->first_name.' '.$this->last_name,
         );
     }
 }

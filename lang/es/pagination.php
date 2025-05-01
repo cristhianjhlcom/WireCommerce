@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -14,9 +16,9 @@ return [
     */
 
     'previous' => '&laquo; Anterior',
-    'next'     => 'Siguiente &raquo;',
-    'first'    => 'Primero',
-    'last'     => 'Último',
+    'next' => 'Siguiente &raquo;',
+    'first' => 'Primero',
+    'last' => 'Último',
     'Showing :first to :last of :total results' => 'Mostrando :first a :last de :total resultados',
 
 ];

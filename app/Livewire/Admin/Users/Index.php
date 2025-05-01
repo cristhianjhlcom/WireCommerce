@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Users;
 
-use Flux\Flux;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
-use Livewire\Attributes\Validate;
 use App\Enums\DocumentsTypeEnum;
 use App\Enums\PermissionsEnum;
 use App\Enums\RolesEnum;
 use App\Models\User;
+use Flux\Flux;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.admin')]
@@ -58,7 +58,7 @@ final class Index extends Component
 
     public function save()
     {
-        if (!auth()->user()->can(PermissionsEnum::CREATE_USERS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::CREATE_USERS->value)) {
             abort(403);
         }
 
@@ -85,7 +85,7 @@ final class Index extends Component
 
     public function delete(User $user)
     {
-        if (!auth()->user()->can(PermissionsEnum::DELETE_USERS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::DELETE_USERS->value)) {
             abort(403);
         }
 

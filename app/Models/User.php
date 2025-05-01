@@ -7,18 +7,18 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RolesEnum;
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
 final class User extends Authenticatable implements Auditable
 {
-    use HasFactory, HasRoles, SoftDeletes, \OwenIt\Auditing\Auditable, Notifiable;
+    use HasFactory, HasRoles, Notifiable, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'email',
@@ -47,7 +47,7 @@ final class User extends Authenticatable implements Auditable
 
     public function isAdministrator(): bool
     {
-        return boolval($this->hasRole(RolesEnum::SUPER_ADMIN->value));
+        return (bool) ($this->hasRole(RolesEnum::SUPER_ADMIN->value));
     }
 
     public function getRoles(): Collection
