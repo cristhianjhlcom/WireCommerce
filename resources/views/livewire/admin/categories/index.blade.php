@@ -18,11 +18,29 @@
                 <flux:button wire:click="toggleTrashed" icon="eye">
                     {{ __('Show/Hide Trashed') }}
                 </flux:button>
-                <flux:button href="/" icon="plus">
-                    {{ __('Add Category') }}
-                </flux:button>
+                <flux:modal.trigger name="create-category">
+                    <flux:button icon="plus">
+                        {{ __('Add Category') }}
+                    </flux:button>
+                </flux:modal.trigger>
             </flux:button.group>
         </div>
+        <flux:modal name="create-category" class="md:w-2/3 lg:w-1/2">
+            <form class="space-y-6" wire:submit.prevent="save">
+                <div>
+                    <flux:heading size="lg">{{ __('Create Category') }}</flux:heading>
+                    <flux:text class="mt-2">{{ __('Create a new category.') }}</flux:text>
+                </div>
+                <flux:input label="{{ __('Name') }}" wire:model.live="name" placeholder="{{ __('Gold Ring') }}" />
+                <flux:input label="{{ __('Slug') }}" wire:model.live="slug" placeholder="{{ __('gold-ring') }}" />
+                <flux:input label="{{ __('Image') }}" wire:model.lazy="image" type="file" accept="image/*" />
+                <flux:editor label="{{ __('Description') }}" wire:model="description"  description="{{ __('A brief description of the category.') }}" />
+                <div class="flex">
+                    <flux:spacer />
+                    <flux:button type="submit" variant="primary">{{ __('Save Changes') }}</flux:button>
+                </div>
+            </form>
+        </flux:modal>
 
     {{-- NOTE: Table to list all users. --}}
     <flux:table :paginate="$categories">
@@ -39,7 +57,7 @@
                         {{ $category->name }}
                     </flux:table.cell>
                     <flux:table.cell class="max-w-3xs">
-                        <flux:text class="text-wrap">{{ $category->description ?? '-' }}</flux:text>
+                        <flux:text class="text-wrap">{!! $category->description ?? '-' !!}</flux:text>
                     </flux:table.cell>
                     <flux:table.cell>{{ $category->createdAtHuman() }}</flux:table.cell>
                     <flux:table.cell>
