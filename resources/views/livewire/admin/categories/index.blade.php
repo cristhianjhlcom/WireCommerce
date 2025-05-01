@@ -28,8 +28,8 @@
         <flux:modal @close="refreshForm" @cancel="refreshForm" name="create-category" class="md:w-2/3 lg:w-1/2">
             <form class="space-y-6" wire:submit.prevent="save">
                 <div>
-                    <flux:heading size="lg">{{ __('Create Category') }}</flux:heading>
-                    <flux:text class="mt-2">{{ __('Create a new category.') }}</flux:text>
+                    <flux:heading size="lg">{{ __('Update Category') }}</flux:heading>
+                    <flux:text class="mt-2">{{ __('Update Current Category.') }}</flux:text>
                 </div>
                 <flux:input label="{{ __('Name') }}" wire:model.live="name" placeholder="{{ __('Gold Ring') }}" />
                 <flux:input label="{{ __('Slug') }}" wire:model.live="slug" placeholder="{{ __('gold-ring') }}" />
@@ -56,7 +56,7 @@
                     <flux:table.cell class="flex items-center gap-3">
                         {{ $category->name }}
                     </flux:table.cell>
-                    <flux:table.cell>
+                    <flux:table.cell class="max-w-3xs">
                         <flux:text class="text-wrap">{!! $category->description ?? '-' !!}</flux:text>
                     </flux:table.cell>
                     <flux:table.cell>{{ $category->createdAtHuman() }}</flux:table.cell>

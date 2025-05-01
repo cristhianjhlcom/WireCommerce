@@ -10,6 +10,7 @@ use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -17,6 +18,8 @@ use Livewire\Component;
 #[Layout('layouts.admin')]
 final class Index extends Component
 {
+    public ?Category $category = null;
+
     #[Validate]
     public string $name = '';
 
@@ -28,6 +31,7 @@ final class Index extends Component
 
     public function refreshForm()
     {
+        $this->category = null;
         $this->reset();
     }
 
@@ -40,12 +44,23 @@ final class Index extends Component
 
     public function edit(Category $category)
     {
+        if (! auth()->user()->can(PermissionsEnum::EDIT_CATEGORIES->value)) {
+            Flux::toast(
+                heading: __('Access Denied'),
+                text: __('You cannot edit categories.'),
+                variant: 'error',
+            );
+
+            Flux::modal("edit-category-{$category->id}")->close();
+        }
+
+        $this->category = $category;
         $this->name = $category->name;
         $this->slug = $category->slug;
         $this->description = $category->description;
         $this->image = $category->image;
 
-        Flux::modal('edit-category-'.$category->id)->show();
+        Flux::modal("edit-category-{$category->id}")->show();
     }
 
     public function save()
@@ -53,40 +68,51 @@ final class Index extends Component
         if (! auth()->user()->can(PermissionsEnum::CREATE_CATEGORIES->value)) {
             Flux::toast(
                 heading: __('Access Denied'),
-                text: __('You cannot create categories.'),
+                text: __('You cannot manage categories.'),
                 variant: 'error',
             );
 
-            return redirect()->route('admin.categories.index');
+            if ($this->category) {
+                Flux::modal("edit-category-{$this->category->id}")->close();
+            } else {
+                Flux::modal('create-category')->close();
+            }
         }
 
         $this->validate();
 
         try {
-            Category::create([
-                'name' => $this->name,
-                'slug' => $this->slug,
-                'description' => $this->description,
-                'image' => $this->image,
-            ]);
+            Category::updateOrCreate(
+                ['id' => $this->category?->id],
+                [
+                    'name' => Str::title($this->name),
+                    'slug' => $this->slug,
+                    'description' => $this->description,
+                    'image' => $this->image,
+                ]
+            );
 
             DB::commit();
 
             $this->reset();
 
             Flux::toast(
-                heading: __('Category Created'),
-                text: __('Category created successfully.'),
+                heading: __('Category Saved'),
+                text: __('Category saved successfully.'),
                 variant: 'success',
             );
 
-            Flux::modal('create-category')->close();
+            if ($this->category) {
+                Flux::modal("edit-category-{$this->category->id}")->close();
+            } else {
+                Flux::modal('create-category')->close();
+            }
         } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating category: ').$e->getMessage(),
+                text: __('Error while saving category: ').$e->getMessage(),
                 variant: 'error',
             );
         }
@@ -123,7 +149,11 @@ final class Index extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:categories,slug',
+            'slug' => [
+                'required',
+                'min:3',
+                Rule::unique('categories', 'slug')->ignore($this->category?->id),
+            ],
             'description' => 'required|string|max:255',
             'image' => 'nullable|image|max:2048',
         ];
