@@ -25,7 +25,7 @@
                 </flux:modal.trigger>
             </flux:button.group>
         </div>
-        <flux:modal name="create-category" class="md:w-2/3 lg:w-1/2">
+        <flux:modal @close="refreshForm" @cancel="refreshForm" name="create-category" class="md:w-2/3 lg:w-1/2">
             <form class="space-y-6" wire:submit.prevent="save">
                 <div>
                     <flux:heading size="lg">{{ __('Create Category') }}</flux:heading>
@@ -56,7 +56,7 @@
                     <flux:table.cell class="flex items-center gap-3">
                         {{ $category->name }}
                     </flux:table.cell>
-                    <flux:table.cell class="max-w-3xs">
+                    <flux:table.cell>
                         <flux:text class="text-wrap">{!! $category->description ?? '-' !!}</flux:text>
                     </flux:table.cell>
                     <flux:table.cell>{{ $category->createdAtHuman() }}</flux:table.cell>
@@ -64,14 +64,30 @@
                         <flux:dropdown position="bottom" align="end">
                             <flux:button variant="ghost" icon="ellipsis-horizontal"></flux:button>
                             <flux:menu>
-                                <flux:menu.item icon="pencil" href="/">
+                                <flux:navmenu.item icon="pencil" wire:click='edit({{ $category }})'>
                                     {{ __('Edit') }}
-                                </flux:menu.item>
+                                </flux:navmenu.item>
                                 <flux:menu.item icon="archive-box" variant="danger" wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}" wire:click="delete({{ $category }})">
                                     {{ __('Archive') }}
                                 </flux:menu.item>
                             </flux:menu>
                         </flux:dropdown>
+                        <flux:modal @close="refreshForm" @cancel="refreshForm" name='{{ "edit-category-{$category->id}" }}' class="md:w-2/3 lg:w-1/2">
+                            <form class="space-y-6" wire:submit.prevent="save">
+                                <div>
+                                    <flux:heading size="lg">{{ __('Create Category') }}</flux:heading>
+                                    <flux:text class="mt-2">{{ __('Create a new category.') }}</flux:text>
+                                </div>
+                                <flux:input label="{{ __('Name') }}" wire:model.live="name" placeholder="{{ __('Gold Ring') }}" />
+                                <flux:input label="{{ __('Slug') }}" wire:model.live="slug" placeholder="{{ __('gold-ring') }}" />
+                                <flux:input label="{{ __('Image') }}" wire:model.lazy="image" type="file" accept="image/*" />
+                                <flux:editor label="{{ __('Description') }}" wire:model="description"  description="{{ __('A brief description of the category.') }}" />
+                                <div class="flex">
+                                    <flux:spacer />
+                                    <flux:button type="submit" variant="primary">{{ __('Save Changes') }}</flux:button>
+                                </div>
+                            </form>
+                        </flux:modal>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

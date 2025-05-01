@@ -26,11 +26,26 @@ final class Index extends Component
 
     public ?string $image = null;
 
+    public function refreshForm()
+    {
+        $this->reset();
+    }
+
     public function updating($property, $value)
     {
         if ($property === 'name') {
             $this->slug = Str::slug($value);
         }
+    }
+
+    public function edit(Category $category)
+    {
+        $this->name = $category->name;
+        $this->slug = $category->slug;
+        $this->description = $category->description;
+        $this->image = $category->image;
+
+        Flux::modal('edit-category-'.$category->id)->show();
     }
 
     public function save()
