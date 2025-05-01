@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin\Users;
 
-use App\Enums\DocumentsTypeEnum;
 use App\Enums\PermissionsEnum;
-use App\Enums\RolesEnum;
 use App\Models\User;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -20,6 +17,7 @@ final class Index extends Component
     use WithPagination;
 
     public string $sortBy = 'role';
+
     public string $sortDirection = 'desc';
 
     public function sort($column)
@@ -53,8 +51,8 @@ final class Index extends Component
 
     public function users()
     {
-        return \App\Models\User::with('profile')
-            ->tap(fn($query) => $this->sortBy ?  $query->orderBy($this->sortBy, $this->sortDirection) : $query)
+        return User::with('profile')
+            ->tap(fn ($query) => $this->sortBy ? $query->orderBy($this->sortBy, $this->sortDirection) : $query)
             ->latest()
             ->paginate(10);
     }

@@ -8,6 +8,7 @@ use App\Enums\DocumentsTypeEnum;
 use App\Enums\PermissionsEnum;
 use App\Enums\RolesEnum;
 use App\Models\User;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -15,7 +16,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-class Create extends Component
+final class Create extends Component
 {
     #[Validate]
     public string $first_name = '';
@@ -97,11 +98,11 @@ class Create extends Component
             );
 
             return redirect()->route('admin.users.index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating user: ') . $e->getMessage(),
+                text: __('Error while updating user: ').$e->getMessage(),
                 variant: 'error',
             );
         }

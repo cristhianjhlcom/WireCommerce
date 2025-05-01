@@ -8,6 +8,7 @@ use App\Enums\DocumentsTypeEnum;
 use App\Enums\PermissionsEnum;
 use App\Enums\RolesEnum;
 use App\Models\User;
+use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -15,7 +16,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-class Edit extends Component
+final class Edit extends Component
 {
     public User $user;
 
@@ -56,7 +57,7 @@ class Edit extends Component
 
     public function mount(User $user)
     {
-        if (!auth()->user()->can(PermissionsEnum::EDIT_USERS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::EDIT_USERS->value)) {
             Flux::toast(
                 heading: __('Access Denied'),
                 text: __('You cannot edit users.'),
@@ -84,12 +85,13 @@ class Edit extends Component
 
     public function save()
     {
-        if (!auth()->user()->can(PermissionsEnum::EDIT_USERS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::EDIT_USERS->value)) {
             Flux::toast(
                 heading: __('Something went wrong'),
                 text: __('You cannot edit users.'),
                 variant: 'error',
             );
+
             return;
         }
 
@@ -123,12 +125,12 @@ class Edit extends Component
             );
 
             return redirect()->route('admin.users.index');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating user: ') . $e->getMessage(),
+                text: __('Error while updating user: ').$e->getMessage(),
                 variant: 'error',
             );
         }

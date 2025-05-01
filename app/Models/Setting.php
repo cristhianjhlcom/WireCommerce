@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Setting extends Model implements Auditable
+final class Setting extends Model implements Auditable
 {
     use AuditableTrait;
 
@@ -26,8 +28,7 @@ class Setting extends Model implements Auditable
     /**
      * Obtiene el valor de una configuración
      *
-     * @param string $key
-     * @param mixed $default
+     * @param  mixed  $default
      * @return mixed
      */
     public static function get(string $key, $default = null)
@@ -40,11 +41,7 @@ class Setting extends Model implements Auditable
     /**
      * Establece un valor de configuración
      *
-     * @param string $key
-     * @param mixed $value
-     * @param string $group
-     * @param string $type
-     * @param bool $isPublic
+     * @param  mixed  $value
      * @return Setting
      */
     public static function set(string $key, $value, string $group = 'general', string $type = 'string', bool $isPublic = false)
