@@ -16,7 +16,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout('layouts.admin')]
-final class Index extends Component
+final class CategoryIndexManagement extends Component
 {
     public ?Category $category = null;
 

@@ -7,6 +7,7 @@
       label="{{ __('Email') }}"
       name="email"
       placeholder="john.doe@example.com"
+      type="email"
       wire:model="email"
     />
     <flux:separator />
@@ -36,7 +37,9 @@
         <flux:label>{{ __('Document Type') }}</flux:label>
         <flux:select placeholder="{{ __('Choose Document Type') }}..." wire:model="document_type">
           @foreach ($documentsType as $type)
-            <flux:select.option value="{{ $type->value }}">{{ $type->label() }}</flux:select.option>
+            <flux:select.option value="{{ $type->value }}" wire:key="{{ $type->value }}">
+              {{ $type->label() }}
+            </flux:select.option>
           @endforeach
         </flux:select>
         <flux:error name="document_type" />

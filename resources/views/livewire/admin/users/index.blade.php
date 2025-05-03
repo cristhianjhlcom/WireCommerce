@@ -46,7 +46,7 @@
 
       <flux:table.rows>
         @foreach ($users as $user)
-          <flux:table.row :key="$user - > id">
+          <flux:table.row key="{{ $user->id }}">
             <flux:table.cell class="flex items-center gap-3">
               <flux:avatar name="{{ $user->profile->full_name }}" />
               {{ $user->profile->full_name }}
@@ -71,9 +71,6 @@
               <flux:dropdown align="end" position="bottom">
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
-                  <flux:menu.item href="{{ route('admin.users.show', $user) }}" icon="eye">
-                    {{ __('View') }}
-                  </flux:menu.item>
                   <flux:menu.item href="{{ route('admin.users.edit', $user) }}" icon="pencil">
                     {{ __('Edit') }}
                   </flux:menu.item>

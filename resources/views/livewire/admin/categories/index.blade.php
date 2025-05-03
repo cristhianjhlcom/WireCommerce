@@ -78,7 +78,7 @@
 
       <flux:table.rows>
         @foreach ($categories as $category)
-          <flux:table.row :key="$category - > id">
+          <flux:table.row key="{{ $category->id }}">
             <flux:table.cell class="flex items-center gap-3">
               {{ $category->name }}
             </flux:table.cell>

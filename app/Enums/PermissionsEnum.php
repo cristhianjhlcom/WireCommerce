@@ -22,6 +22,14 @@ enum PermissionsEnum: string
     case RESTORE_CATEGORIES = 'restore_categories';
     case FORCE_DELETE_CATEGORIES = 'force_delete_categories';
 
+    case VIEW_TAGS = 'view_tags';
+    case CREATE_TAGS = 'create_tags';
+    case UPDATE_TAGS = 'update_tags';
+    case EDIT_TAGS = 'edit_tags';
+    case DELETE_TAGS = 'delete_tags';
+    case RESTORE_TAGS = 'restore_tags';
+    case FORCE_DELETE_TAGS = 'force_delete_tags';
+
     case VIEW_PROFILE = 'view_profile';
 
     public static function values(): array
@@ -48,6 +56,13 @@ enum PermissionsEnum: string
             self::RESTORE_CATEGORIES => __('Restore Categories'),
             self::FORCE_DELETE_CATEGORIES => __('Force Delete Categories'),
 
+            self::VIEW_TAGS => __('View Tags'),
+            self::CREATE_TAGS => __('Create Tags'),
+            self::UPDATE_TAGS => __('Update Tags'),
+            self::EDIT_TAGS => __('Edit Tags'),
+            self::DELETE_TAGS => __('Delete Tags'),
+            self::RESTORE_TAGS => __('Restore Tags'),
+            self::FORCE_DELETE_TAGS => __('Force Delete Tags'),
             self::VIEW_PROFILE => __('View Profile'),
         };
     }

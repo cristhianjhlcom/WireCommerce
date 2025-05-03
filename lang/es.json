@@ -97,5 +97,9 @@
     "Permission": "Permiso",
     "Permissions": "Permisos",
     "Roles": "Roles",
-    "Users": "Usuarios"
+    "Users": "Usuarios",
+    "Tags": "Etiquetas",
+    "Categories": "Categorías",
+    "Tag": "Etiqueta",
+    "Category": "Categoría"
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -30,14 +31,16 @@ final class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(app()->isProduction());
         DB::prohibitDestructiveCommands(app()->isProduction());
 
-        $requiredTables = ['users', 'categories'];
-
+        /*
+        $requiredTables = ['users', 'categories', 'tags'];
         if ($this->tablesExist($requiredTables)) {
             View::share([
                 'usersCount' => User::count(),
                 'categoriesCount' => Category::count(),
+                'tagsCount' => Tag::count(),
             ]);
         }
+        */
     }
 
     protected function tablesExist(array $tables): bool
