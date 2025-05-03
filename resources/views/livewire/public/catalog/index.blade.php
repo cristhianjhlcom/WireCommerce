@@ -1,3 +1,3 @@
 <div>
-    Welcome to WireCommerce.
+  Welcome to WireCommerce.
 </div>
