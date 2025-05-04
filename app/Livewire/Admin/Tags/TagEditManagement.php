@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Tags;
 
 use App\Enums\PermissionsEnum;
@@ -7,14 +9,14 @@ use App\Models\Tag;
 use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 #[Layout(('layouts.admin'))]
-class TagEditManagement extends Component
+final class TagEditManagement extends Component
 {
     public array $availableIcons = ['🔥', '⚡', '⭐', '🏷️', '😎'];
 
@@ -94,7 +96,7 @@ class TagEditManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating tag: ') . $e->getMessage(),
+                text: __('Error while creating tag: ').$e->getMessage(),
                 variant: 'error',
             );
         }

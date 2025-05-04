@@ -52,6 +52,9 @@
       <flux:navlist.item href="{{ route('admin.colors.index') }}" icon="paint-brush">
         {{ __('Colors') }}
       </flux:navlist.item>
+      <flux:navlist.item href="{{ route('admin.sizes.index') }}" icon="scissors">
+        {{ __('Sizes') }}
+      </flux:navlist.item>
     </flux:navlist>
     <flux:spacer />
     @auth

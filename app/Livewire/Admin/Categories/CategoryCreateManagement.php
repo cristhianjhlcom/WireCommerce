@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Categories;
 
 use Livewire\Component;
 
-class CategoryCreateManagement extends Component
+final class CategoryCreateManagement extends Component
 {
     public function render()
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Admin\Colors;
 
 use App\Enums\PermissionsEnum;
@@ -9,7 +11,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout(('layouts.admin'))]
-class ColorIndexManagement extends Component
+final class ColorIndexManagement extends Component
 {
     public function delete(Color $color)
     {

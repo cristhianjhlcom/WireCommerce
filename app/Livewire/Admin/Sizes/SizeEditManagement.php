@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Admin\Colors;
+namespace App\Livewire\Admin\Sizes;
 
 use App\Enums\PermissionsEnum;
-use App\Models\Color;
+use App\Models\Size;
 use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
@@ -15,54 +15,50 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Layout(('layouts.admin'))]
-final class ColorEditManagement extends Component
+final class SizeEditManagement extends Component
 {
-    public ?Color $color = null;
+    public ?Size $size = null;
 
     #[Validate]
     public string $name = '';
 
-    public string $hex = '';
-
-    public function mount(Color $color)
+    public function mount(Size $size)
     {
         // TODO: Add services class to handle all those logic.
-        if (! auth()->user()->can(PermissionsEnum::EDIT_COLORS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::EDIT_SIZES->value)) {
             Flux::toast(
                 heading: __('Access Denied'),
-                text: __('You cannot edit colors.'),
+                text: __('You cannot edit sizes.'),
                 variant: 'error',
             );
 
-            return redirect()->route('admin.colors.index');
+            return redirect()->route('admin.sizes.index');
         }
 
-        $this->color = $color;
-        $this->name = $color->name;
-        $this->hex = $color->hex;
+        $this->size = $size;
+        $this->name = $size->name;
     }
 
     public function save()
     {
         // TODO: Add services class to handle all those logic.
-        if (! auth()->user()->can(PermissionsEnum::CREATE_COLORS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::CREATE_SIZES->value)) {
             Flux::toast(
                 heading: __('Access Denied'),
-                text: __('You cannot create colors.'),
+                text: __('You cannot create sizes.'),
                 variant: 'error',
             );
 
-            return redirect()->route('admin.colors.index');
+            return redirect()->route('admin.sizes.index');
         }
 
         $this->validate();
 
         try {
-            Color::updateOrCreate(
-                ['id' => $this->color?->id],
+            Size::updateOrCreate(
+                ['id' => $this->size?->id],
                 [
-                    'name' => Str::title($this->name),
-                    'hex' => $this->hex,
+                    'name' => Str::upper($this->name),
                 ]
             );
 
@@ -71,18 +67,18 @@ final class ColorEditManagement extends Component
             $this->reset();
 
             Flux::toast(
-                heading: __('Color Created'),
-                text: __('Color created successfully.'),
+                heading: __('Size Created'),
+                text: __('Size created successfully.'),
                 variant: 'success',
             );
 
-            return redirect()->route('admin.colors.index');
+            return redirect()->route('admin.sizes.index');
         } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating color: ') . $e->getMessage(),
+                text: __('Error while creating size: ').$e->getMessage(),
                 variant: 'error',
             );
         }
@@ -90,14 +86,13 @@ final class ColorEditManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.colors.edit');
+        return view('livewire.admin.sizes.edit');
     }
 
     protected function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
-            'hex' => 'required|string|max:255',
         ];
     }
 }

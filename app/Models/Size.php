@@ -10,13 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
-final class Color extends Model implements Auditable
+final class Size extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
-        'hex',
     ];
 
     protected $casts = [

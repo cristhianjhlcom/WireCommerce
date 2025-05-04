@@ -38,6 +38,14 @@ enum PermissionsEnum: string
     case RESTORE_COLORS = 'restore_colors';
     case FORCE_DELETE_COLORS = 'force_delete_colors';
 
+    case VIEW_SIZES = 'view_sizes';
+    case CREATE_SIZES = 'create_sizes';
+    case UPDATE_SIZES = 'update_sizes';
+    case EDIT_SIZES = 'edit_sizes';
+    case DELETE_SIZES = 'delete_sizes';
+    case RESTORE_SIZES = 'restore_sizes';
+    case FORCE_DELETE_SIZES = 'force_delete_sizes';
+
     case VIEW_PROFILE = 'view_profile';
 
     public static function values(): array
@@ -71,6 +79,14 @@ enum PermissionsEnum: string
             self::DELETE_COLORS => __('Delete Colors'),
             self::RESTORE_COLORS => __('Restore Colors'),
             self::FORCE_DELETE_COLORS => __('Force Delete Colors'),
+
+            self::VIEW_SIZES => __('View Sizes'),
+            self::CREATE_SIZES => __('Create Sizes'),
+            self::UPDATE_SIZES => __('Update Sizes'),
+            self::EDIT_SIZES => __('Edit Sizes'),
+            self::DELETE_SIZES => __('Delete Sizes'),
+            self::RESTORE_SIZES => __('Restore Sizes'),
+            self::FORCE_DELETE_SIZES => __('Force Delete Sizes'),
 
             self::VIEW_TAGS => __('View Tags'),
             self::CREATE_TAGS => __('Create Tags'),

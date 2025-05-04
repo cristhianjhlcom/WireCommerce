@@ -2,41 +2,41 @@
 
 declare(strict_types=1);
 
-namespace App\Livewire\Admin\Tags;
+namespace App\Livewire\Admin\Sizes;
 
 use App\Enums\PermissionsEnum;
-use App\Models\Tag;
+use App\Models\Size;
 use Flux\Flux;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout(('layouts.admin'))]
-final class TagIndexManagement extends Component
+final class SizeIndexManagement extends Component
 {
-    public function delete(Tag $tag)
+    public function delete(Size $size)
     {
-        if (! auth()->user()->can(PermissionsEnum::DELETE_TAGS->value)) {
+        if (! auth()->user()->can(PermissionsEnum::DELETE_SIZES->value)) {
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('You cannot delete tags.'),
+                text: __('You cannot delete sizes.'),
                 variant: 'error',
             );
         }
 
-        $tag->delete();
+        $size->delete();
 
         Flux::toast(
-            heading: __('Tag deleted'),
-            text: __('Tag deleted successfully.'),
+            heading: __('Size deleted'),
+            text: __('Size deleted successfully.'),
             variant: 'success',
         );
     }
 
     public function render()
     {
-        return view('livewire.admin.tags.index')
+        return view('livewire.admin.sizes.index')
             ->with([
-                'tags' => Tag::latest()
+                'sizes' => Size::latest()
                     ->paginate(16),
             ]);
     }
