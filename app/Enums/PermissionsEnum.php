@@ -30,6 +30,14 @@ enum PermissionsEnum: string
     case RESTORE_TAGS = 'restore_tags';
     case FORCE_DELETE_TAGS = 'force_delete_tags';
 
+    case VIEW_COLORS = 'view_colors';
+    case CREATE_COLORS = 'create_colors';
+    case UPDATE_COLORS = 'update_colors';
+    case EDIT_COLORS = 'edit_colors';
+    case DELETE_COLORS = 'delete_colors';
+    case RESTORE_COLORS = 'restore_colors';
+    case FORCE_DELETE_COLORS = 'force_delete_colors';
+
     case VIEW_PROFILE = 'view_profile';
 
     public static function values(): array
@@ -55,6 +63,14 @@ enum PermissionsEnum: string
             self::DELETE_CATEGORIES => __('Delete Categories'),
             self::RESTORE_CATEGORIES => __('Restore Categories'),
             self::FORCE_DELETE_CATEGORIES => __('Force Delete Categories'),
+
+            self::VIEW_COLORS => __('View Colors'),
+            self::CREATE_COLORS => __('Create Colors'),
+            self::UPDATE_COLORS => __('Update Colors'),
+            self::EDIT_COLORS => __('Edit Colors'),
+            self::DELETE_COLORS => __('Delete Colors'),
+            self::RESTORE_COLORS => __('Restore Colors'),
+            self::FORCE_DELETE_COLORS => __('Force Delete Colors'),
 
             self::VIEW_TAGS => __('View Tags'),
             self::CREATE_TAGS => __('Create Tags'),

@@ -5,6 +5,9 @@ declare(strict_types=1);
 use App\Livewire\Admin\Categories\CategoryCreateManagement;
 use App\Livewire\Admin\Categories\CategoryEditManagement;
 use App\Livewire\Admin\Categories\CategoryIndexManagement;
+use App\Livewire\Admin\Colors\ColorCreateManagement;
+use App\Livewire\Admin\Colors\ColorEditManagement;
+use App\Livewire\Admin\Colors\ColorIndexManagement;
 use App\Livewire\Admin\Tags\TagCreateManagement;
 use App\Livewire\Admin\Tags\TagEditManagement;
 use App\Livewire\Admin\Tags\TagIndexManagement;
@@ -29,6 +32,10 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('admin/tags', TagIndexManagement::class)->name('admin.tags.index');
     Route::get('admin/tags/create', TagCreateManagement::class)->name('admin.tags.create');
     Route::get('admin/tags/{tag}/edit', TagEditManagement::class)->name('admin.tags.edit');
+    // NOTE: Colors Management.
+    Route::get('admin/colors', ColorIndexManagement::class)->name('admin.colors.index');
+    Route::get('admin/colors/create', ColorCreateManagement::class)->name('admin.colors.create');
+    Route::get('admin/colors/{color}/edit', ColorEditManagement::class)->name('admin.colors.edit');
 });
 
 // NOTE: Auth routes.
