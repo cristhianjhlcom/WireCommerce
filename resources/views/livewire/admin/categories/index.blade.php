@@ -22,52 +22,15 @@
         <flux:button icon="eye" wire:click="toggleTrashed">
           {{ __('Show/Hide Trashed') }}
         </flux:button>
-        <flux:modal.trigger name="create-category">
-          <flux:button icon="plus">
-            {{ __('Add Category') }}
-          </flux:button>
-        </flux:modal.trigger>
+        <flux:button
+          href="{{ route('admin.categories.create') }}"
+          icon="plus"
+          wire:navigate
+        >
+          {{ __('Add Category') }}
+        </flux:button>
       </flux:button.group>
     </div>
-    <flux:modal
-      @cancel="refreshForm"
-      @close="refreshForm"
-      class="md:w-2/3 lg:w-1/2"
-      name="create-category"
-    >
-      <form class="space-y-6" wire:submit.prevent="save">
-        <div>
-          <flux:heading size="lg">{{ __('Update Category') }}</flux:heading>
-          <flux:text class="mt-2">{{ __('Update Current Category.') }}</flux:text>
-        </div>
-        <flux:input
-          label="{{ __('Name') }}"
-          placeholder="{{ __('Gold Ring') }}"
-          wire:model.live="name"
-        />
-        <flux:input
-          label="{{ __('Slug') }}"
-          placeholder="{{ __('gold-ring') }}"
-          wire:model.live="slug"
-        />
-        <flux:input
-          accept="image/*"
-          label="{{ __('Image') }}"
-          type="file"
-          wire:model.lazy="image"
-        />
-        <flux:editor
-          description="{{ __('A brief description of the category.') }}"
-          label="{{ __('Description') }}"
-          wire:model="description"
-        />
-        <div class="flex">
-          <flux:spacer />
-          <flux:button type="submit" variant="primary">{{ __('Save Changes') }}</flux:button>
-        </div>
-      </form>
-    </flux:modal>
-
     {{-- NOTE: Table to list all users. --}}
     <flux:table :paginate="$categories">
       <flux:table.columns>
@@ -90,7 +53,11 @@
               <flux:dropdown align="end" position="bottom">
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
-                  <flux:navmenu.item icon="pencil" wire:click='edit({{ $category }})'>
+                  <flux:navmenu.item
+                    href="{{ route('admin.categories.edit', ['category' => $category]) }}"
+                    icon="pencil"
+                    wire:navigate
+                  >
                     {{ __('Edit') }}
                   </flux:navmenu.item>
                   <flux:menu.item
@@ -103,44 +70,6 @@
                   </flux:menu.item>
                 </flux:menu>
               </flux:dropdown>
-              <flux:modal
-                @cancel="refreshForm"
-                @close="refreshForm"
-                class="md:w-2/3 lg:w-1/2"
-                name='{{ "edit-category-{$category->id}" }}'
-              >
-                <form class="space-y-6" wire:submit.prevent="save">
-                  <div>
-                    <flux:heading size="lg">{{ __('Create Category') }}</flux:heading>
-                    <flux:text class="mt-2">{{ __('Create a new category.') }}</flux:text>
-                  </div>
-                  <flux:input
-                    label="{{ __('Name') }}"
-                    placeholder="{{ __('Gold Ring') }}"
-                    wire:model.live="name"
-                  />
-                  <flux:input
-                    label="{{ __('Slug') }}"
-                    placeholder="{{ __('gold-ring') }}"
-                    wire:model.live="slug"
-                  />
-                  <flux:input
-                    accept="image/*"
-                    label="{{ __('Image') }}"
-                    type="file"
-                    wire:model.lazy="image"
-                  />
-                  <flux:editor
-                    description="{{ __('A brief description of the category.') }}"
-                    label="{{ __('Description') }}"
-                    wire:model="description"
-                  />
-                  <div class="flex">
-                    <flux:spacer />
-                    <flux:button type="submit" variant="primary">{{ __('Save Changes') }}</flux:button>
-                  </div>
-                </form>
-              </flux:modal>
             </flux:table.cell>
           </flux:table.row>
         @endforeach

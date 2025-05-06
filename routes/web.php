@@ -47,5 +47,8 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('admin/sizes/{size}/edit', SizeEditManagement::class)->name('admin.sizes.edit');
 });
 
-// NOTE: Auth routes.
+/*
+// NOTE: Auth routes (For now auth is handle by Fortify)
 Route::view('/auth/register', 'auth.register')->name('auth.register');
+Route::view('/auth/login', 'auth.login')->name('auth.login');
+*/
