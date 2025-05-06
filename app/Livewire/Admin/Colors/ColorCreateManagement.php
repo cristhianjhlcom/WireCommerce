@@ -49,7 +49,7 @@ final class ColorCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating color: ') . $e->getMessage(),
+                text: __('Error while creating color: ').$e->getMessage(),
                 variant: 'error',
             );
         }

@@ -46,7 +46,7 @@ final class SizeCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating size: ') . $e->getMessage(),
+                text: __('Error while creating size: ').$e->getMessage(),
                 variant: 'error',
             );
         }

@@ -63,7 +63,7 @@ final class CategoryCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while saving category: ') . $e->getMessage(),
+                text: __('Error while saving category: ').$e->getMessage(),
                 variant: 'error',
             );
         }

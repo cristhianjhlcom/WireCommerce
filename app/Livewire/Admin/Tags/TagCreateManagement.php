@@ -62,7 +62,7 @@ final class TagCreateManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating tag: ') . $e->getMessage(),
+                text: __('Error while creating tag: ').$e->getMessage(),
                 variant: 'error',
             );
         }

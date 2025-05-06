@@ -80,7 +80,7 @@ final class CategoryEditManagement extends Component
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while updating category: ') . $e->getMessage(),
+                text: __('Error while updating category: ').$e->getMessage(),
                 variant: 'error',
             );
         }
