@@ -38,16 +38,12 @@ final class TagCreateManagement extends Component
     {
         // TODO: Add services class to handle all those logic.
         if (! auth()->user()->can(PermissionsEnum::CREATE_TAGS->value)) {
-            Flux::toast(
-                heading: __('Access Denied'),
-                text: __('You cannot create tags.'),
-                variant: 'error',
-            );
-
-            return redirect()->route('admin.tags.index');
+            abort(403);
         }
 
         $this->validate();
+
+        DB::beginTransaction();
 
         try {
             Tag::create([
@@ -60,19 +56,13 @@ final class TagCreateManagement extends Component
 
             $this->reset();
 
-            Flux::toast(
-                heading: __('Tag Created'),
-                text: __('Tag created successfully.'),
-                variant: 'success',
-            );
-
-            return redirect()->route('admin.tags.index');
+            $this->redirect(route('admin.tags.index'), navigate: true);
         } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating tag: ').$e->getMessage(),
+                text: __('Error while creating tag: ') . $e->getMessage(),
                 variant: 'error',
             );
         }

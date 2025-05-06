@@ -28,13 +28,7 @@ final class ColorEditManagement extends Component
     {
         // TODO: Add services class to handle all those logic.
         if (! auth()->user()->can(PermissionsEnum::EDIT_COLORS->value)) {
-            Flux::toast(
-                heading: __('Access Denied'),
-                text: __('You cannot edit colors.'),
-                variant: 'error',
-            );
-
-            return redirect()->route('admin.colors.index');
+            abort(403);
         }
 
         $this->color = $color;
@@ -57,6 +51,8 @@ final class ColorEditManagement extends Component
 
         $this->validate();
 
+        DB::beginTransaction();
+
         try {
             Color::updateOrCreate(
                 ['id' => $this->color?->id],
@@ -70,13 +66,7 @@ final class ColorEditManagement extends Component
 
             $this->reset();
 
-            Flux::toast(
-                heading: __('Color Created'),
-                text: __('Color created successfully.'),
-                variant: 'success',
-            );
-
-            return redirect()->route('admin.colors.index');
+            $this->redirect(route('admin.colors.index'), navigate: true);
         } catch (Exception $e) {
             DB::rollBack();
 

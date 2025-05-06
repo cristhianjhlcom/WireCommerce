@@ -59,6 +59,8 @@ final class CategoryEditManagement extends Component
 
         $this->validate();
 
+        DB::beginTransaction();
+
         try {
             $this->category->update([
                 'name' => str()->title($this->name),

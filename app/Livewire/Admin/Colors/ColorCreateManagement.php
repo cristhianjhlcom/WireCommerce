@@ -26,16 +26,12 @@ final class ColorCreateManagement extends Component
     {
         // TODO: Add services class to handle all those logic.
         if (! auth()->user()->can(PermissionsEnum::CREATE_COLORS->value)) {
-            Flux::toast(
-                heading: __('Access Denied'),
-                text: __('You cannot create colors.'),
-                variant: 'error',
-            );
-
-            return redirect()->route('admin.colors.index');
+            abort(403);
         }
 
         $this->validate();
+
+        DB::beginTransaction();
 
         try {
             Color::create([
@@ -47,19 +43,13 @@ final class ColorCreateManagement extends Component
 
             $this->reset();
 
-            Flux::toast(
-                heading: __('Color Created'),
-                text: __('Color created successfully.'),
-                variant: 'success',
-            );
-
-            return redirect()->route('admin.colors.index');
+            $this->redirect(route('admin.colors.index'), navigate: true);
         } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating color: ').$e->getMessage(),
+                text: __('Error while creating color: ') . $e->getMessage(),
                 variant: 'error',
             );
         }

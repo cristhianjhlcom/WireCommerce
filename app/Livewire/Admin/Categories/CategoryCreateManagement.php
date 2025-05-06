@@ -43,6 +43,8 @@ final class CategoryCreateManagement extends Component
 
         $this->validate();
 
+        DB::beginTransaction();
+
         try {
             Category::create([
                 'name' => str()->title($this->name),

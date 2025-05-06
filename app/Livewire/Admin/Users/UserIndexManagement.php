@@ -12,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('layouts.admin')]
-final class Index extends Component
+final class UserIndexManagement extends Component
 {
     use WithPagination;
 

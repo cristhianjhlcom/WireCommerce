@@ -24,16 +24,12 @@ final class SizeCreateManagement extends Component
     {
         // TODO: Add services class to handle all those logic.
         if (! auth()->user()->can(PermissionsEnum::CREATE_SIZES->value)) {
-            Flux::toast(
-                heading: __('Access Denied'),
-                text: __('You cannot create sizes.'),
-                variant: 'error',
-            );
-
-            return redirect()->route('admin.sizes.index');
+            abort(403);
         }
 
         $this->validate();
+
+        DB::beginTransaction();
 
         try {
             Size::create([
@@ -44,19 +40,13 @@ final class SizeCreateManagement extends Component
 
             $this->reset();
 
-            Flux::toast(
-                heading: __('Size Created'),
-                text: __('Size created successfully.'),
-                variant: 'success',
-            );
-
-            return redirect()->route('admin.sizes.index');
+            $this->redirect(route('admin.sizes.index'), navigate: true);
         } catch (Exception $e) {
             DB::rollBack();
 
             Flux::toast(
                 heading: __('Something went wrong'),
-                text: __('Error while creating size: ').$e->getMessage(),
+                text: __('Error while creating size: ') . $e->getMessage(),
                 variant: 'error',
             );
         }
