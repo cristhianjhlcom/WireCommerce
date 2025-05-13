@@ -21,6 +21,7 @@ final class DatabaseSeeder extends Seeder
             TagSeeder::class,
             ColorSeeder::class,
             SizeSeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }

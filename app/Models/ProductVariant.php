@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Livewire\WithPagination;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\IntlMoneyFormatter;
@@ -17,7 +18,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 class ProductVariant extends Model implements Auditable
 {
-    use HasFactory, AuditableTrait;
+    use HasFactory, AuditableTrait, WithPagination;
 
     protected $fillable = [
         'product_id',

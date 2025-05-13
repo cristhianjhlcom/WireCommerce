@@ -29,4 +29,16 @@ enum ProductsStatusEnum: string
             self::IN_STOCK => __('In Stock'),
         };
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::DRAFT => 'gray',
+            self::INACTIVE => 'yellow',
+            self::ACTIVE => 'green',
+            self::PUBLISHED => 'blue',
+            self::OUT_OF_STOCK => 'red',
+            self::IN_STOCK => 'green',
+        };
+    }
 }

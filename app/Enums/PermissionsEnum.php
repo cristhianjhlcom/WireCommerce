@@ -22,6 +22,14 @@ enum PermissionsEnum: string
     case RESTORE_CATEGORIES = 'restore_categories';
     case FORCE_DELETE_CATEGORIES = 'force_delete_categories';
 
+    case VIEW_PRODUCTS = 'view_products';
+    case CREATE_PRODUCTS = 'create_products';
+    case UPDATE_PRODUCTS = 'update_products';
+    case EDIT_PRODUCTS = 'edit_products';
+    case DELETE_PRODUCTS = 'delete_products';
+    case RESTORE_PRODUCTS = 'restore_products';
+    case FORCE_DELETE_PRODUCTS = 'force_delete_products';
+
     case VIEW_TAGS = 'view_tags';
     case CREATE_TAGS = 'create_tags';
     case UPDATE_TAGS = 'update_tags';
@@ -63,6 +71,14 @@ enum PermissionsEnum: string
             self::DELETE_USERS => __('Delete Users'),
             self::RESTORE_USERS => __('Restore Users'),
             self::FORCE_DELETE_USERS => __('Force Delete Users'),
+
+            self::VIEW_PRODUCTS => __('View Products'),
+            self::CREATE_PRODUCTS => __('Create Products'),
+            self::UPDATE_PRODUCTS => __('Update Products'),
+            self::EDIT_PRODUCTS => __('Edit Products'),
+            self::DELETE_PRODUCTS => __('Delete Products'),
+            self::RESTORE_PRODUCTS => __('Restore Products'),
+            self::FORCE_DELETE_PRODUCTS => __('Force Delete Products'),
 
             self::VIEW_CATEGORIES => __('View Categories'),
             self::CREATE_CATEGORIES => __('Create Categories'),

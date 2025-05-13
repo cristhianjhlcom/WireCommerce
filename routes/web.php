@@ -8,6 +8,9 @@ use App\Livewire\Admin\Categories\CategoryIndexManagement;
 use App\Livewire\Admin\Colors\ColorCreateManagement;
 use App\Livewire\Admin\Colors\ColorEditManagement;
 use App\Livewire\Admin\Colors\ColorIndexManagement;
+use App\Livewire\Admin\Products\ProductCreateManagement;
+use App\Livewire\Admin\Products\ProductEditManagement;
+use App\Livewire\Admin\Products\ProductIndexManagement;
 use App\Livewire\Admin\Sizes\SizeCreateManagement;
 use App\Livewire\Admin\Sizes\SizeEditManagement;
 use App\Livewire\Admin\Sizes\SizeIndexManagement;
@@ -27,6 +30,10 @@ Route::group(['middleware' => 'role:super_admin|manager'], function () {
     Route::get('admin/users', UserIndexManagement::class)->name('admin.users.index');
     Route::get('admin/users/create', UserCreateManagement::class)->name('admin.users.create');
     Route::get('admin/users/{user}/edit', UserEditManagement::class)->name('admin.users.edit');
+    // NOTE: Products Management.
+    Route::get('admin/products', ProductIndexManagement::class)->name('admin.products.index');
+    Route::get('admin/products/create', ProductCreateManagement::class)->name('admin.products.create');
+    Route::get('admin/products/{product}/edit', ProductEditManagement::class)->name('admin.products.edit');
     // NOTE: Categories Management.
     Route::get('admin/categories', CategoryIndexManagement::class)->name('admin.categories.index');
     Route::get('admin/categories/create', CategoryCreateManagement::class)->name('admin.categories.create');

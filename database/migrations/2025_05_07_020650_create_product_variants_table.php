@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->string('sku')->unique();
-            $table->foreignId('color_id')->constrained()->onDelete('set null');
-            $table->foreignId('size_id')->constrained()->onDelete('set null');
+            $table->foreignId('color_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('size_id')->nullable()->constrained()->onDelete('set null');
             $table->unsignedInteger('price');
             $table->unsignedInteger('sale_price')->nullable();
             $table->string('currency_code', 3)->default(CurrenciesCodeEnum::PEN->value);
