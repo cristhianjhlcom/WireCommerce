@@ -45,19 +45,25 @@
     <flux:navlist variant="outline">
       <flux:navlist.item href="{{ route('home.index') }}" icon="home">{{ __('Home') }}</flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.users.index') }}" icon="user">{{ __('Users') }}</flux:navlist.item>
-      <flux:navlist.item href="{{ route('admin.products.index') }}" icon="cube">
-        {{ __('Products') }}
-      </flux:navlist.item>
       <flux:navlist.item href="{{ route('admin.categories.index') }}" icon="newspaper">
         {{ __('Categories') }}
       </flux:navlist.item>
-      <flux:navlist.item href="{{ route('admin.tags.index') }}" icon="tag">{{ __('Tags') }}</flux:navlist.item>
-      <flux:navlist.item href="{{ route('admin.colors.index') }}" icon="paint-brush">
-        {{ __('Colors') }}
-      </flux:navlist.item>
-      <flux:navlist.item href="{{ route('admin.sizes.index') }}" icon="scissors">
-        {{ __('Sizes') }}
-      </flux:navlist.item>
+      <flux:navlist.group
+        class="hidden lg:grid"
+        expandable
+        heading="{{ __('Variants') }}"
+      >
+        <flux:navlist.item href="{{ route('admin.products.index') }}">
+          {{ __('Products') }}
+        </flux:navlist.item>
+        <flux:navlist.item href="{{ route('admin.tags.index') }}">{{ __('Tags') }}</flux:navlist.item>
+        <flux:navlist.item href="{{ route('admin.colors.index') }}">
+          {{ __('Colors') }}
+        </flux:navlist.item>
+        <flux:navlist.item href="{{ route('admin.sizes.index') }}">
+          {{ __('Sizes') }}
+        </flux:navlist.item>
+      </flux:navlist.group>
     </flux:navlist>
     <flux:spacer />
     @auth
