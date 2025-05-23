@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Livewire\Admin\Products;
 
 use App\Enums\PermissionsEnum;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tag;
 use Exception;
 use Flux\Flux;
 use Illuminate\Support\Facades\DB;
@@ -71,7 +73,10 @@ final class ProductCreateManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.products.create');
+        return view('livewire.admin.products.create', [
+            'categories' => Category::all(),
+            'tags' => Tag::all(),
+        ]);
     }
 
     protected function rules(): array
