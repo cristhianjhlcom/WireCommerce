@@ -17,7 +17,11 @@
       <div class="w-full space-y-4 md:w-2/3">
         <flux:card class="space-y-4">
           <flux:field>
-            <flux:input placeholder="{{ __('Gold Ring') }}" wire:model.live='name' />
+            <flux:input
+              autocomplete="off"
+              placeholder="{{ __('Gold Ring') }}"
+              wire:model.live='name'
+            />
             <flux:error name="name" />
           </flux:field>
           <flux:input.group>
@@ -45,7 +49,7 @@
             <flux:errorname="image" />
           </flux:field>
         </flux:card>
-        <flux:card class="space-y-4">
+        {{-- <flux:card class="space-y-4">
           <div class="flex items-center justify-between gap-x-4">
             <div>
               <flux:heading>{{ __('Variants Combinations') }}</flux:heading>
@@ -188,7 +192,7 @@
               @endforelse
             </flux:table.rows>
           </flux:table>
-        </flux:card>
+        </flux:card> --}}
       </div>
 
       {{-- Second Section --}}
@@ -196,12 +200,16 @@
         <flux:card class="space-y-4">
           <flux:field>
             <flux:label>{{ __('Status') }}</flux:label>
-            <flux:select placeholder="{{ __('Select Status') }}" wire:model="status">
-              @foreach (App\Enums\ProductsStatusEnum::cases() as $key => $value)
-                <flux:select.option value="{{ $key }}">{{ $value->label() }}</flux:select.option>
+            <flux:select
+              disabled
+              placeholder="{{ __('Select Status') }}"
+              wire:model="product_statu"
+            >
+              @foreach ($statusList as $statu)
+                <flux:select.option value="{{ $statu->value }}">{{ $statu->label() }}</flux:select.option>
               @endforeach
             </flux:select>
-            <flux:errorname="status" />
+            <flux:errorname="product_statu" />
           </flux:field>
         </flux:card>
         <flux:card class="space-y-4">
@@ -210,7 +218,7 @@
             <flux:description>
               {{ __('Categories group products together. You can define a category on the categories pages.') }}
             </flux:description>
-            <flux:select placeholder="{{ __('Select Category') }}" wire:model="category">
+            <flux:select placeholder="{{ __('Select Category') }}" wire:model="category_id">
               @foreach ($categories as $category)
                 <flux:select.option value="{{ $category->id }}">{{ $category->name }}</flux:select.option>
               @endforeach
@@ -228,7 +236,7 @@
               variant="listbox"
               wire:model="tags"
             >
-              @foreach ($tags as $tag)
+              @foreach ($tagsList as $tag)
                 <flux:select.option value="{{ $tag->id }}">{{ $tag->name }}</flux:select.option>
               @endforeach
             </flux:select>

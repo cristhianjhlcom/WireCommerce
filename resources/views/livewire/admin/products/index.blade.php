@@ -34,6 +34,7 @@
     {{-- NOTE: Table to list all users. --}}
     <flux:table :paginate="$variants">
       <flux:table.columns>
+        <flux:table.column>{{ __('SKU') }}</flux:table.column>
         <flux:table.column>{{ __('Name') }}</flux:table.column>
         <flux:table.column>{{ __('Category') }}</flux:table.column>
         <flux:table.column>{{ __('Price') }}</flux:table.column>
@@ -53,9 +54,11 @@
                 src="{{ $variant->image }}"
               />
               <div class="flex flex-col items-start gap-y-1">
-                <h4>{{ $variant->product->name }}</h4>
-                <p>{{ $variant->sku }}</p>
+                <h4>{{ $variant->sku }}</h4>
               </div>
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $variant->product->name }}
             </flux:table.cell>
             <flux:table.cell>
               {{ $variant->product->category->name }}

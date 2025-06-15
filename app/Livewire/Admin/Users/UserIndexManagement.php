@@ -38,6 +38,7 @@ final class UserIndexManagement extends Component
                 text: __('You cannot delete users.'),
                 variant: 'error',
             );
+            return;
         }
 
         $user->delete();
