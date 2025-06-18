@@ -37,8 +37,8 @@ final class ProductIndexManagement extends Component
 
     public function render()
     {
-        return view('livewire.admin.products.index', [
-            'variants' => ProductVariant::with([
+        /*
+        $variants = ProductVariant::with([
                 'product',
                 'product.category',
                 'product.tags',
@@ -46,7 +46,22 @@ final class ProductIndexManagement extends Component
                 'product.images'
             ])
                 ->latest()
-                ->paginate(16),
+                ->paginate(16);
+                */
+        $products = Product::with([
+            'variants',
+            'variants.color',
+            'variants.size',
+            'tags',
+            'images',
+            'category',
+        ])
+            ->latest()
+            ->paginate(16);
+
+        return view('livewire.admin.products.index', [
+            'products' => $products,
+            // 'variants' => $variants,
         ]);
     }
 }

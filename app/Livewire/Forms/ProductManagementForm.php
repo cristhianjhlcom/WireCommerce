@@ -29,8 +29,8 @@ class ProductManagementForm extends Form
     public string $variant_sku = '';
     public string $variant_color = '';
     public string $variant_size = '';
-    public string $variant_price = '';
-    public string $variant_sale_price = '';
+    public int $variant_price = 0;
+    public ?int $variant_sale_price = null;
     public CurrenciesCodeEnum $variant_currency_code = CurrenciesCodeEnum::PEN;
     public ProductsStatusEnum $variant_status = ProductsStatusEnum::ACTIVE;
     public ?string $variant_image = null;
@@ -135,8 +135,8 @@ class ProductManagementForm extends Form
         $this->variant_sku = '';
         $this->variant_color = '';
         $this->variant_size = '';
-        $this->variant_price = '';
-        $this->variant_sale_price = '';
+        $this->variant_price = 0;
+        $this->variant_sale_price = null;
         $this->variant_currency_code = CurrenciesCodeEnum::PEN;
         $this->variant_status = ProductsStatusEnum::ACTIVE;
         $this->variant_image = null;

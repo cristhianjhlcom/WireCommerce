@@ -35,12 +35,6 @@ final class ProductEditManagement extends Component
         */
         $this->authorize('update', $product);
 
-        $this->product = $product->load([
-            'variants',
-            'variants.color',
-            'variants.size',
-            'tags',
-        ]);
 
         // $this->variants = $product->variants;
         // $this->images = $product->images;
@@ -139,6 +133,13 @@ final class ProductEditManagement extends Component
 
     public function render()
     {
+        $this->product->load([
+            'variants',
+            'variants.color',
+            'variants.size',
+            'tags',
+        ]);
+
         return view('livewire.admin.products.edit', [
             'productTags' => Tag::orderBy('name')->get(),
             'productStatus' => ProductsStatusEnum::cases(),

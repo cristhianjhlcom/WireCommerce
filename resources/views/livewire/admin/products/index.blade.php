@@ -32,60 +32,51 @@
       </flux:button.group>
     </div>
     {{-- NOTE: Table to list all users. --}}
-    <flux:table :paginate="$variants">
+    <flux:table :paginate="$products">
       <flux:table.columns>
-        <flux:table.column>{{ __('SKU') }}</flux:table.column>
+        <flux:table.column>{{ __('#') }}</flux:table.column>
         <flux:table.column>{{ __('Name') }}</flux:table.column>
+        <flux:table.column>{{ __('Variants') }}</flux:table.column>
         <flux:table.column>{{ __('Category') }}</flux:table.column>
-        <flux:table.column>{{ __('Price') }}</flux:table.column>
-        <flux:table.column>{{ __('Sale Price') }}</flux:table.column>
+        <flux:table.column>{{ __('Description') }}</flux:table.column>
         <flux:table.column>{{ __('Status') }}</flux:table.column>
-        <flux:table.column>{{ __('Inventory') }}</flux:table.column>
         <flux:table.column>{{ __('Date') }}</flux:table.column>
       </flux:table.columns>
 
       <flux:table.rows>
-        @foreach ($variants as $variant)
-          <flux:table.row key="{{ $variant->id }}">
-            <flux:table.cell class="flex items-center gap-3">
-              <flux:avatar
-                alt="{{ $variant->product->name }}"
-                circle
-                src="{{ $variant->image }}"
-              />
-              <div class="flex flex-col items-start gap-y-1">
-                <h4>{{ $variant->sku }}</h4>
+        @foreach ($products as $product)
+          <flux:table.row key="{{ $product->id }}">
+            <flux:table.cell class="font-bold">
+              {{ $product->id }}
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $product->name }}
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $product->variants->count() }}
+            </flux:table.cell>
+            <flux:table.cell>
+              {{ $product->category->name ?? '---' }}
+            </flux:table.cell>
+            <flux:table.cell>
+              <div class="text-wrap">
+                {!! str()->limit($product->description, 100) !!}
               </div>
             </flux:table.cell>
             <flux:table.cell>
-              {{ $variant->product->name }}
-            </flux:table.cell>
-            <flux:table.cell>
-              {{ $variant->product->category->name }}
-            </flux:table.cell>
-            <flux:table.cell>
-              {{ $variant->getFormattedPrice() }}
-            </flux:table.cell>
-            <flux:table.cell>
-              {{ $variant->getFormattedSalePrice() ?? __('No Discount') }}
-            </flux:table.cell>
-            <flux:table.cell>
-              <flux:badge color="{{ $variant->product->status->color() }}">
-                {{ $variant->product->status->label() }}
+              <flux:badge color="{{ $product->status->color() }}">
+                {{ $product->status->label() }}
               </flux:badge>
             </flux:table.cell>
             <flux:table.cell>
-              <flux:badge color="{{ $variant->status->color() }}">
-                {{ $variant->status->label() }}
-              </flux:badge>
+              {{ $product->createdAtHuman() }}
             </flux:table.cell>
-            <flux:table.cell>{{ $variant->product->createdAtHuman() }}</flux:table.cell>
             <flux:table.cell>
               <flux:dropdown align="end" position="bottom">
                 <flux:button icon="ellipsis-horizontal" variant="ghost"></flux:button>
                 <flux:menu>
                   <flux:navmenu.item
-                    href="{{ route('admin.products.edit', ['product' => $variant->product]) }}"
+                    href="{{ route('admin.products.edit', ['product' => $product]) }}"
                     icon="pencil"
                     wire:navigate
                   >
@@ -94,7 +85,7 @@
                   <flux:menu.item
                     icon="archive-box"
                     variant="danger"
-                    wire:click="delete({{ $variant->product }})"
+                    wire:click="delete({{ $product }})"
                     wire:confirm.prevent="{{ __('Are you sure you want to delete this user?') }}"
                   >
                     {{ __('Archive') }}

@@ -193,10 +193,10 @@
                     </flux:badge>
                   </flux:table.cell>
                   <flux:table.cell variant="strong">
-                    {{ $variant->price }}
+                    {{ $variant->getFormattedPrice() }}
                   </flux:table.cell>
                   <flux:table.cell variant="strong">
-                    {{ $variant->sale_price }}
+                    {{ $variant->getFormattedSalePrice() ?? '---' }}
                   </flux:table.cell>
                   <flux:table.cell>
                     <flux:dropdown align="end" position="bottom">
@@ -296,14 +296,14 @@
           <flux:input
             label="{{ __('Seo Title') }}"
             name="form.seo_title"
-            placeholder="consectetur adipiscing elit 📦"
+            placeholder="Pretty Title 📦"
             type="text"
             wire:model="form.seo_title"
           />
           <flux:textarea
             label="{{ __('Seo Description') }}"
             name="form.seo_description"
-            placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam congue sapien eget arcu tristique venenatis..."
+            placeholder="Descripción para los buscadores como Google, Bing, etc."
             rows="2"
             wire:model="form.seo_description"
           />
